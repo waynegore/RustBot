@@ -31,6 +31,8 @@ fn main() {
     // start listening for events by starting a single shard
     if let Err(why) = client.start() {
         println!("An error occurred while running the client: {:?}", why);
+    } else {
+        println!("Started up!");
     }
 }
 
@@ -43,12 +45,13 @@ fn ping(ctx: &mut Context, msg: &Message) -> CommandResult {
 
 #[command]
 fn tarkov(ctx: &mut Context, msg: &Message) -> CommandResult {
+    println!(msg.content);
     let response = match msg.content.as_ref() {
         "woods" => "https://gamepedia.cursecdn.com/escapefromtarkov_gamepedia/d/d9/Woods_v1.1_lowres.jpg?version=c556f944c9a53d972eb4685911e8f6c1",
         _ => "Not found"
     };
 
-    msg.channel_id.say(&ctx.http, response);
+    msg.reply(ctx, response);
 
     Ok(())
 }
