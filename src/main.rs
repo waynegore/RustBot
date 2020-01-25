@@ -43,12 +43,12 @@ fn ping(ctx: &mut Context, msg: &Message) -> CommandResult {
 
 #[command]
 fn tarkov(ctx: &mut Context, msg: &Message) -> CommandResult {
-    let response = match msg.content as &str {
+    let response = match msg.content.as_ref() {
         "woods" => "https://gamepedia.cursecdn.com/escapefromtarkov_gamepedia/d/d9/Woods_v1.1_lowres.jpg?version=c556f944c9a53d972eb4685911e8f6c1",
-        _ => {}
+        _ => "Not found"
     };
 
-    msg.channel_id.say(ctx, response);
+    msg.channel_id.say(&ctx.http, response);
 
     Ok(())
 }
